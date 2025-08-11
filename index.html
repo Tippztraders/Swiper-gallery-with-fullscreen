@@ -3,40 +3,57 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Swiper Fullscreen Gallery</title>
+  <title>Swiper Gallery with Fullscreen</title>
 
   <!-- Swiper CSS -->
   <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 
-  <!-- Your Styles -->
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
+<!-- Main Gallery -->
 <div class="gallery-container">
-  <div class="swiper mySwiper">
+  <div class="swiper main-swiper">
     <div class="swiper-wrapper">
-      <div class="swiper-slide"><img src="PH18a.png" alt="Image 1"></div>
-      <div class="swiper-slide"><img src="PH18d.png" alt="Image 2"></div>
-      <div class="swiper-slide"><img src="PH18.png" alt="Image 3"></div>
-      <div class="swiper-slide"><img src="PH18c.png" alt="Image 4"></div>
-      <div class="swiper-slide"><img src="PH18b.png" alt="Image 5"></div>
+      <div class="swiper-slide"><img src="PH16a.png" alt="Image 1" onclick="openFullscreen(0)"></div>
+      <div class="swiper-slide"><img src="PH17a.png" alt="Image 2" onclick="openFullscreen(1)"></div>
+      <div class="swiper-slide"><img src="PH18.png" alt="Image 3" onclick="openFullscreen(2)"></div>
+      <div class="swiper-slide"><img src="PH18a.png" alt="Image 4" onclick="openFullscreen(3)"></div>
+      <div class="swiper-slide"><img src="PH18b.png" alt="Image 5" onclick="openFullscreen(4)"></div>
     </div>
 
     <!-- Arrows -->
-    <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next main-next"></div>
+    <div class="swiper-button-prev main-prev"></div>
 
-    <!-- Dots -->
-    <div class="swiper-pagination"></div>
+    <!-- Pagination -->
+    <div class="swiper-pagination main-pagination"></div>
   </div>
 </div>
 
-<!-- Swiper JS -->
-<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<!-- Fullscreen Overlay -->
+<div id="fullscreenOverlay" class="fullscreen-overlay">
+  <button class="close-btn" onclick="closeFullscreen()">✕</button>
+  <div class="swiper fullscreen-swiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide"><img src="PH18.png" alt="Image 1"></div>
+      <div class="swiper-slide"><img src="PH18a.png" alt="Image 2"></div>
+      <div class="swiper-slide"><img src="PH18b.png" alt="Image 3"></div>
+      <div class="swiper-slide"><img src="PH18c.png" alt="Image 4"></div>
+      <div class="swiper-slide"><img src="PH18d.png" alt="Image 5"></div>
+    </div>
 
-<!-- Your Script -->
+    <!-- Arrows -->
+    <div class="swiper-button-next fullscreen-next"></div>
+    <div class="swiper-button-prev fullscreen-prev"></div>
+
+    <!-- Pagination -->
+    <div class="swiper-pagination fullscreen-pagination"></div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
-
