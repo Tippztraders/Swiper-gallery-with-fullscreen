@@ -1,50 +1,55 @@
-// Main gallery swiper
-var swiper = new Swiper(".mySwiper", {
-  loop: true,
-  pagination: { el: ".swiper-pagination", clickable: true },
-  navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" }
-});
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
 
-// Create fullscreen lightbox swiper
-let lightboxSwiper;
-let lightbox = document.createElement("div");
-lightbox.classList.add("lightbox");
-lightbox.innerHTML = `
-  <span class="lightbox-close">&times;</span>
-  <div class="swiper lightbox-swiper">
-    <div class="swiper-wrapper"></div>
-    <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-pagination"></div>
-  </div>
-`;
-document.body.appendChild(lightbox);
+.gallery-container {
+  max-width: 900px;
+  margin: 20px auto;
+}
 
-// Open fullscreen on image click
-document.querySelectorAll(".mySwiper .swiper-slide img").forEach((img, index) => {
-  img.addEventListener("click", () => {
-    const wrapper = lightbox.querySelector(".swiper-wrapper");
-    wrapper.innerHTML = ""; // clear old slides
-    document.querySelectorAll(".mySwiper .swiper-slide img").forEach(slideImg => {
-      wrapper.innerHTML += `<div class="swiper-slide"><img src="${slideImg.src}"></div>`;
-    });
-    lightbox.style.display = "block";
-    lightboxSwiper = new Swiper(".lightbox-swiper", {
-      initialSlide: index,
-      loop: true,
-      zoom: true,
-      pagination: { el: ".lightbox-swiper .swiper-pagination", clickable: true },
-      navigation: {
-        nextEl: ".lightbox-swiper .swiper-button-next",
-        prevEl: ".lightbox-swiper .swiper-button-prev"
-      }
-    });
-  });
-});
+.gallery-container img {
+  width: 100%;
+  cursor: pointer;
+  border-radius: 6px;
+}
 
-// Close lightbox
-document.addEventListener("click", (e) => {
-  if (e.target.classList.contains("lightbox-close") || e.target.classList.contains("lightbox")) {
-    lightbox.style.display = "none";
-  }
-});
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.fullscreen-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.95);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+}
+
+.fullscreen-overlay.active {
+  display: flex;
+}
+
+.fullscreen-overlay img {
+  max-height: 90%;
+  max-width: 90%;
+  object-fit: contain;
+}
+
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 28px;
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 10000;
+}
