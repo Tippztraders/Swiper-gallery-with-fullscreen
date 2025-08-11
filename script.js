@@ -1,55 +1,47 @@
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
+// Main Gallery Swiper
+const mainSwiper = new Swiper('.main-swiper', {
+  navigation: {
+    nextEl: '.main-next',
+    prevEl: '.main-prev',
+  },
+  pagination: {
+    el: '.main-pagination',
+    clickable: true,
+  },
+});
+
+// Fullscreen Swiper (init later)
+let fullscreenSwiper;
+const fullscreenOverlay = document.getElementById('fullscreenOverlay');
+
+function openFullscreen(index) {
+  fullscreenOverlay.classList.add('active');
+  document.body.style.overflow = 'hidden'; // prevent background scroll
+
+  if (!fullscreenSwiper) {
+    fullscreenSwiper = new Swiper('.fullscreen-swiper', {
+      navigation: {
+        nextEl: '.fullscreen-next',
+        prevEl: '.fullscreen-prev',
+      },
+      pagination: {
+        el: '.fullscreen-pagination',
+        clickable: true,
+      },
+    });
+  }
+
+  fullscreenSwiper.slideTo(index, 0);
 }
 
-.gallery-container {
-  max-width: 900px;
-  margin: 20px auto;
+function closeFullscreen() {
+  fullscreenOverlay.classList.remove('active');
+  document.body.style.overflow = '';
 }
 
-.gallery-container img {
-  width: 100%;
-  cursor: pointer;
-  border-radius: 6px;
-}
-
-.swiper {
-  width: 100%;
-  height: 100%;
-}
-
-.fullscreen-overlay {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.95);
-  z-index: 9999;
-  justify-content: center;
-  align-items: center;
-}
-
-.fullscreen-overlay.active {
-  display: flex;
-}
-
-.fullscreen-overlay img {
-  max-height: 90%;
-  max-width: 90%;
-  object-fit: contain;
-}
-
-.close-btn {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  font-size: 28px;
-  color: white;
-  background: none;
-  border: none;
-  cursor: pointer;
-  z-index: 10000;
-}
+// ESC key closes fullscreen
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && fullscreenOverlay.classList.contains('active')) {
+    closeFullscreen();
+  }
+});
