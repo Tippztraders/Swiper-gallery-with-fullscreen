@@ -1,47 +1,50 @@
-// Main Gallery Swiper
-const mainSwiper = new Swiper('.main-swiper', {
-  navigation: {
-    nextEl: '.main-next',
-    prevEl: '.main-prev',
-  },
-  pagination: {
-    el: '.main-pagination',
-    clickable: true,
-  },
+// Initialize all Swipers
+document.querySelectorAll('.mySwiper').forEach((el) => {
+  new Swiper(el, {
+    loop: true,
+    navigation: {
+      nextEl: el.querySelector('.swiper-button-next'),
+      prevEl: el.querySelector('.swiper-button-prev'),
+    },
+    pagination: {
+      el: el.querySelector('.swiper-pagination'),
+      clickable: true,
+    },
+  });
 });
 
-// Fullscreen Swiper (init later)
-let fullscreenSwiper;
-const fullscreenOverlay = document.getElementById('fullscreenOverlay');
+// Open modal
+document.querySelectorAll('.openGallery').forEach((img) => {
+  img.addEventListener('click', () => {
+    const modalId = img.getAttribute('data-modal');
+    document.getElementById(modalId).classList.add('active');
+  });
+});
 
-function openFullscreen(index) {
-  fullscreenOverlay.classList.add('active');
-  document.body.style.overflow = 'hidden'; // prevent background scroll
+// Close modal with swipe down or Esc
+document.querySelectorAll('.modal').forEach((modal) => {
+  let touchStartY = 0;
 
-  if (!fullscreenSwiper) {
-    fullscreenSwiper = new Swiper('.fullscreen-swiper', {
-      navigation: {
-        nextEl: '.fullscreen-next',
-        prevEl: '.fullscreen-prev',
-      },
-      pagination: {
-        el: '.fullscreen-pagination',
-        clickable: true,
-      },
-    });
-  }
+  modal.addEventListener('touchstart', (e) => {
+    touchStartY = e.touches[0].clientY;
+  });
 
-  fullscreenSwiper.slideTo(index, 0);
-}
+  modal.addEventListener('touchend', (e) => {
+    const touchEndY = e.changedTouches[0].clientY;
+    if (touchEndY - touchStartY > 100) {
+      modal.classList.remove('active');
+    }
+  });
 
-function closeFullscreen() {
-  fullscreenOverlay.classList.remove('active');
-  document.body.style.overflow = '';
-}
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      modal.classList.remove('active');
+    }
+  });
 
-// ESC key closes fullscreen
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && fullscreenOverlay.classList.contains('active')) {
-    closeFullscreen();
-  }
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.classList.remove('active');
+    }
+  });
 });
