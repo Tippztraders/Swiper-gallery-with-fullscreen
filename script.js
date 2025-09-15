@@ -1,18 +1,27 @@
-const swiper = new Swiper('.swiper', {
-  direction: 'vertical',
-  loop: true,
+let mainSwiper;
 
-  pagination: {
-    el: '.swiper-pagination',
-    clickable: true,
-  },
+function openSwiperModal(startIndex = 0) {
+  const modal = document.querySelector('.swiper-modal');
+  modal.style.display = 'flex';
 
-  navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev',
-  },
+  // Init vertical swiper
+  mainSwiper = new Swiper('.main-swiper', {
+    direction: 'vertical',
+    spaceBetween: 10,
+    pagination: {
+      el: '.main-pagination',
+      clickable: true,
+    },
+    initialSlide: startIndex,
+  });
+}
 
-  scrollbar: {
-    el: '.swiper-scrollbar',
-  },
-});
+function closeSwiperModal() {
+  const modal = document.querySelector('.swiper-modal');
+  modal.style.display = 'none';
+
+  if (mainSwiper) {
+    mainSwiper.destroy();
+    mainSwiper = null;
+  }
+}
