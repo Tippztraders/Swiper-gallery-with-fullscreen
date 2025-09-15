@@ -1,27 +1,145 @@
 body {
-  margin: 0;
-  font-family: sans-serif;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+.section-heading {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Featured Item Card */
+.product-box {
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background: #f4f4f4;
 }
 
-.swiper {
-  width: 600px;
-  height: 400px;
+.featured-item {
+  width: 300px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
 }
 
-.swiper-slide {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #eee;
+.featured-item:hover {
+  transform: translateY(-5px);
 }
 
-.swiper-slide img {
+.featured-item .main-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.featured-item h4,
+.featured-item h6,
+.featured-item p {
+  padding: 0 15px;
+  margin: 10px 0;
+}
+
+.featured-item .tap-text {
+  font-size: 12px;
+  color: #777;
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+
+
+
+
+
+
+
+/* === Modal Overlay === */
+.swiper-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  background: rgba(0,0,0,0.9);
+  display: none; /* hidden by default */
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+/* Modal Content */
+.swiper-modal-content {
+  position: relative;
+  width: 90%;
+  max-width: 600px;
+  height: 90%;
+  background: #000;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Close Button */
+.swiper-close-button {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 16px;
+  background: #f44336;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 1000;
+}
+.swiper-close-button:hover {
+  background: #d32f2f;
+}
+
+/* Main Swiper */
+.main-swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.main-swiper img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Pagination Dots */
+.swiper-pagination {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.swiper-pagination-bullet {
+  background: grey;     /* all bullets visible */
+  opacity: 0.6;
+  width: 10px;
+  height: 10px;
+}
+
+.swiper-pagination-bullet-active {
+  background: #007bff; /* active one blue */
+  opacity: 1;
+}
+
+/* Tap outside to close */
+.swiper-close-area {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
 }
